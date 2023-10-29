@@ -37,11 +37,11 @@ void setup(){
     };
   display.drawTest(d, 576 * 5, 5);
   delay(5000);
-  /*
+  
   mqtt.addDisplayCallback(&mqtt_callback_display);
   mqtt.addPagerCallback(&mqtt_callback_pager_message);
   mqtt.connect(MQTT_BROKER, MQTT_PORT);
-  */
+  
 }
 
 void loop(){
