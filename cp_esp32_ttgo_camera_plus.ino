@@ -214,6 +214,7 @@ void mqtt_connect() {
   //connecting to a mqtt broker
   mqttClient.setServer(MQTT_BROKER, MQTT_PORT);
   mqttClient.setCallback(mqtt_callback);
+  mqttClient.setBufferSize(5120);
   mqttClient.setKeepAlive(60*60);
   while (!mqttClient.connected()) {
       String client_id = "cp-esp32-client-";
