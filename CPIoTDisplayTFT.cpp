@@ -36,14 +36,14 @@ void CPIoTDisplayTFT::init() {
 
 }
 
-void CPIoTDisplayTFT::updatePagerMessage(String sender, String receiver, String message, unsigned char* textPixels, int dataLen) {
+void CPIoTDisplayTFT::updatePagerMessage(String sender, String receiver, String message, unsigned char* textPixels, int dataLen, int textCount) {
   tft.fillScreen(TFT_BLACK);
   int x = tft.width() / 2;
   tft.drawString("From: " + sender, x, 20);
   tft.drawString("To: " + receiver, x, 40);
   tft.drawString(message, x, 60);
 
-
+  drawTest(textPixels, dataLen, textCount);
 }
 
 void CPIoTDisplayTFT::setStatus(String message) {

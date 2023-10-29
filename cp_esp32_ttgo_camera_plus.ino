@@ -31,8 +31,7 @@ void setup(){
 
   display.init();
 
-  display.drawTest();
-  delay(5000);
+  delay(1000);
   
   mqtt.addDisplayCallback(&mqtt_callback_display);
   mqtt.addPagerCallback(&mqtt_callback_pager_message);
