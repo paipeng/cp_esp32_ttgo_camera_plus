@@ -35,8 +35,8 @@ void CPIoTDisplayTFT::init() {
   int x = tft.width() / 2;
   int y = tft.height() / 2 ;
 
-  //tft.drawString("武汉", tft.width() / 2, tft.height() / 2);
-  //tft.drawString("LilyGo Camera Plus", tft.width() / 2, tft.height() / 2 + 20);
+  tft.drawString("武汉", tft.width() / 2, tft.height() / 2);
+  tft.drawString("LilyGo Camera Plus", tft.width() / 2, tft.height() / 2 + 20);
 
 }
 
@@ -93,8 +93,8 @@ void CPIoTDisplayTFT::updatePagerMessage(String sender, String receiver, String 
 }
 
 void CPIoTDisplayTFT::setStatus(String message) {
-  //tft.fillScreen(TFT_BLACK);
-  //tft.drawString(message, tft.width() / 2, tft.height() / 2 + 20);
+  tft.fillScreen(TFT_BLACK);
+  tft.drawString(message, tft.width() / 2, tft.height() / 2 + 20);
 }
 
 void CPIoTDisplayTFT::drawTextPixel(int x, int y, int width, int height, const uint16_t* textPixels) {
@@ -137,6 +137,8 @@ void CPIoTDisplayTFT::drawTest(const unsigned char* data, int dataLen, int textC
   spr.pushSprite(0, 0);
   //drawTextPixel(20, 200, 24, 24, (const uint16_t*)td);
   free(td);
-  
+
+  tft.fillScreen(TFT_BLACK);
+  tft.drawString("drawTextPixel", tft.width() / 2, tft.height() / 2 + 20);
   Serial.println("drawTextPixel end");
 }
