@@ -11,10 +11,7 @@
 #define MQTT_MAX_PACKET_SIZE 10240
 // JSON
 #include <ArduinoJson.h>
-// BASE64
-extern "C" {
-#include "crypto/base64.h"
-}
+
 
 #include "wifi_const.h"
 #include "mqtt_const.h"
@@ -23,7 +20,7 @@ extern "C" {
 class CPIoTMqtt {
     using m_cb = void (*)(char*); //alias function pointer
     using m_cb_s = void (*)(String);
-    using m_cb_p = void (*)(String, String, String, unsigned char*, int, int);
+    using m_cb_p = void (*)(String, String, String, String, int);
   public:
     CPIoTMqtt();
   public:

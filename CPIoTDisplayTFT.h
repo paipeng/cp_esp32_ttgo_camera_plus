@@ -14,7 +14,7 @@ class CPIoTDisplayTFT {
     CPIoTDisplayTFT();
     void init();
     void setStatus(String text);
-    void updatePagerMessage(String sender, String receiver, String message, unsigned char* textPixels, int dataLen, int textCount);
+    void updatePagerMessage(String sender, String receiver, String message, String textPixelBase64, int textCount);
     void drawTextPixel(int x, int y, int width, int height, const uint16_t* textPixels);
 
     void drawTest(const unsigned char* data, int dataLen, int textCount);

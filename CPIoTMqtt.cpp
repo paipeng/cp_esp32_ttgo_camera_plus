@@ -154,18 +154,18 @@ void CPIoTMqtt::mqtt_subscribe() {
 
 
 void CPIoTMqtt::mqtt_callback(char *topic, byte *payload, unsigned int length) {
-    Serial.print("-----------------------mqtt arrived in topic: ");
-    Serial.println(topic);
-    Serial.print("Message:");
-
-    String data;
+    Serial.println("-----------------------mqtt arrived in ");
+    Serial.println("Message len:");
+    Serial.printf("%d\n", length);
+    Serial.println("topic: " + String(topic));
+    
+    String data;// = String((const char*)payload);
+    
     for (int i = 0; i < length; i++) {
         Serial.print((char) payload[i]);
         data += (char) payload[i];
     }
-    Serial.println();
-    Serial.println("Message len:" + length);
-
+    
     Serial.println("data: " + data);
 
     if (strstr(topic, "PING")) {
@@ -213,11 +213,7 @@ void CPIoTMqtt::mqtt_callback(char *topic, byte *payload, unsigned int length) {
         int textCount = doc["textCount"];
         Serial.println(message);
         
-        size_t outputLength;
-        unsigned char * decoded = base64_decode((const unsigned char *)textPixelBase64.c_str(), strlen(textPixelBase64.c_str()), &outputLength);
-        Serial.printf("base64 decoded len: %d\n", outputLength);
-        ((CPIoTMqtt*)staticMqtt)->pagerCallback(sender, receiver, message, decoded, outputLength, textCount);
-        free(decoded);
+        ((CPIoTMqtt*)staticMqtt)->pagerCallback(sender, receiver, message, textPixelBase64, textCount);
       }
     }
     Serial.println();
@@ -230,7 +226,7 @@ void CPIoTMqtt::mqtt_connect(char* broker, int port) {
   mqttClient.setServer(broker, port);
   mqttClient.setCallback(this->mqtt_callback);
   
-  mqttClient.setBufferSize(5120);
+  mqttClient.setBufferSize(51200);
   mqttClient.setKeepAlive(60*60);
   while (!mqttClient.connected()) {
       String client_id = "cp-esp32-client-";
