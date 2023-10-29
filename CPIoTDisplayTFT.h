@@ -15,12 +15,13 @@ class CPIoTDisplayTFT {
     void init();
     void setStatus(String text);
     void updatePagerMessage(String sender, String receiver, String message, unsigned char* textPixels, int dataLen);
-    void drawTextPixel(int x, int y, int width, int height, unsigned char* textPixels);
+    void drawTextPixel(int x, int y, int width, int height, const uint16_t* textPixels);
 
-    void drawTest();
+    void drawTest(const unsigned char* data, int dataLen, int textCount);
     
   private:
     TFT_eSPI tft;// = TFT_eSPI();              // Invoke library, pins defined in User_Setup.h
+    TFT_eSprite spr;
 
 };
 #endif
