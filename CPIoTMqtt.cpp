@@ -218,7 +218,7 @@ void CPIoTMqtt::mqtt_callback(char *topic, byte *payload, unsigned int length) {
         unsigned char * decoded = base64_decode((const unsigned char *)textPixelBase64.c_str(), strlen(textPixelBase64.c_str()), &outputLength);
         Serial.printf("base64 decoded len: %d\n", outputLength); 
         Serial.println(message);
-        ((CPIoTMqtt*)staticMqtt)->pagerCallback(sender, receiver, message, decoded, outputLength);
+        ((CPIoTMqtt*)staticMqtt)->pagerCallback(sender, receiver, message, decoded, outputLength, textCount);
         free(decoded);
       }
     }

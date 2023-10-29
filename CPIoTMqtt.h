@@ -23,7 +23,7 @@ extern "C" {
 class CPIoTMqtt {
     using m_cb = void (*)(char*); //alias function pointer
     using m_cb_s = void (*)(String);
-    using m_cb_p = void (*)(String, String, String, unsigned char*, int);
+    using m_cb_p = void (*)(String, String, String, unsigned char*, int, int);
   public:
     CPIoTMqtt();
   public:

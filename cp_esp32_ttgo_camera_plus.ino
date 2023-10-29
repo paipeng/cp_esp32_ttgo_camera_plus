@@ -17,8 +17,8 @@ void mqtt_callback_display(String text) {
   display.setStatus(text);
 }
 
-void mqtt_callback_pager_message(String sender, String receiver, String message, unsigned char* textPixels, int dataLen) {
-  display.updatePagerMessage(sender, receiver, message, textPixels, dataLen);
+void mqtt_callback_pager_message(String sender, String receiver, String message, unsigned char* textPixels, int dataLen, int textCount) {
+  display.updatePagerMessage(sender, receiver, message, textPixels, dataLen, textCount);
 }
 
 void setup(){
