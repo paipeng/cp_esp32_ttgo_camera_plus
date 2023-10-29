@@ -284,6 +284,13 @@ void update_pager_message(String sender, String receiver, String message) {
   tft.drawString(message, x, 60);
 }
 
+void set_tft_status(String message) {
+  
+  tft.fillScreen(TFT_BLACK);
+  
+  tft.drawString(message, tft.width() / 2, tft.height() / 2 + 20);
+}
+
 void setup(){
   delay(2000);
   
@@ -294,13 +301,17 @@ void setup(){
 
   init_tft_display();
 
-
+  set_tft_status("Wifi connecting...");
   wifi_connect();
 
+  
+  set_tft_status("MQTT connecting...");
   mqtt_connect();
 
   // Publish and subscribe
   mqtt_pong();
+  
+  set_tft_status("MQTT subscribe...");
   mqtt_subscribe();
 
   delay(1000);
@@ -310,6 +321,9 @@ void setup(){
   tft.setTextColor(TFT_WHITE, TFT_BLACK);
   tft.setTextSize(2);
   */
+  
+  
+  set_tft_status("Pager ready...");
 }
 
 void loop(){
