@@ -17,8 +17,8 @@ void mqtt_callback_display(String text) {
   display.setStatus(text);
 }
 
-void mqtt_callback_pager_message(String sender, String receiver, String message) {
-  display.updatePagerMessage(sender, receiver, message);
+void mqtt_callback_pager_message(String sender, String receiver, String message, unsigned char* textPixels, int dataLen) {
+  display.updatePagerMessage(sender, receiver, message, textPixels, dataLen);
 }
 
 void setup(){
@@ -30,6 +30,10 @@ void setup(){
   Serial.println("init display...");
 
   display.init();
+
+  display.drawTest();
+  delay(5000);
+  
   mqtt.addDisplayCallback(&mqtt_callback_display);
   mqtt.addPagerCallback(&mqtt_callback_pager_message);
   mqtt.connect(MQTT_BROKER, MQTT_PORT);
