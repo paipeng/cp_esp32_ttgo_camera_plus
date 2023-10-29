@@ -49,7 +49,7 @@ void CPIoTDisplayTFT::updatePagerMessage(String sender, String receiver, String 
   Serial.print("dataLen: ");
   Serial.printf("%d\n", strlen(textPixelBase64.c_str()));
 
-#if 0
+#if 1
   tft.fillScreen(TFT_BLACK);
   int x = tft.width() / 2;
   tft.drawString("From: " + sender, x, 20);
@@ -68,7 +68,7 @@ void CPIoTDisplayTFT::updatePagerMessage(String sender, String receiver, String 
     }
   }
 
-  //drawTest(td, dataLen * 8, textCount);
+  drawTest(td, dataLen * 8, textCount);
   free(td);
   
   free(decoded);
