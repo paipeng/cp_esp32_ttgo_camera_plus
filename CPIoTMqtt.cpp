@@ -261,7 +261,7 @@ void CPIoTMqtt::loop() {
   if (mqttClient.connected()) {
     mqttClient.loop();
   } else {
-    Serial.println("mqtt disconnected");    
+    //Serial.println("mqtt disconnected");    
   }
 
 }
