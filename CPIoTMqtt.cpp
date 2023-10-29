@@ -33,6 +33,9 @@ void CPIoTMqtt::addDisplayCallback(m_cb_s act) {
   displayCallback = act;
 }
 
+void CPIoTMqtt::addPagerCallback(m_cb_p act) {
+  pagerCallback = act;
+}
 void CPIoTMqtt::process() {
   //do stuffs
   char message[] = "Hello World";
@@ -213,9 +216,11 @@ void CPIoTMqtt::mqtt_callback(char *topic, byte *payload, unsigned int length) {
         size_t outputLength;
         unsigned char * decoded = base64_decode((const unsigned char *)textPixelBase64.c_str(), strlen(textPixelBase64.c_str()), &outputLength);
         Serial.printf("base64 decoded len: %d\n", outputLength); 
-        free(decoded);
         Serial.println(message);
         //update_pager_message(sender, receiver, message);
+        
+        ((CPIoTMqtt*)staticMqtt)->pagerCallback(sender, receiver, message);
+        free(decoded);
       }
     }
     Serial.println();

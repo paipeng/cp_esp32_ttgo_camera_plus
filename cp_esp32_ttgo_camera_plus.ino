@@ -17,6 +17,10 @@ void mqtt_callback_display(String text) {
   display.setStatus(text);
 }
 
+void mqtt_callback_pager_message(String sender, String receiver, String message) {
+  display.updatePagerMessage(sender, receiver, message);
+}
+
 void setup(){
   delay(2000);
   
@@ -27,6 +31,7 @@ void setup(){
 
   display.init();
   mqtt.addDisplayCallback(&mqtt_callback_display);
+  mqtt.addPagerCallback(&mqtt_callback_pager_message);
   mqtt.connect(MQTT_BROKER, MQTT_PORT);
 
 }
