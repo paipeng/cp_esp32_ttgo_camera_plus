@@ -138,7 +138,7 @@ void CPIoTDisplayTFT::drawTest(const unsigned char* data, int dataLen, int textC
   //drawTextPixel(20, 200, 24, 24, (const uint16_t*)td);
   free(td);
 
-  tft.fillScreen(TFT_BLACK);
-  tft.drawString("drawTextPixel", tft.width() / 2, tft.height() / 2 + 20);
+  //tft.fillScreen(TFT_BLACK);
+  //tft.drawString("drawTextPixel", tft.width() / 2, tft.height() / 2 + 20);
   Serial.println("drawTextPixel end");
 }
