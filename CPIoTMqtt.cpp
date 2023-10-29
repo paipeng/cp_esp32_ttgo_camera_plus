@@ -6,9 +6,31 @@ CPIoTMqtt::CPIoTMqtt():mqttClient(client),action(NULL) {
   staticMqtt = this;
 }
 
+void CPIoTMqtt::connect(char* broker, int port) {
+  
+  displayCallback("Wifi connecting...");
+  wifi_connect();
+
+  
+  displayCallback("MQTT connecting...");
+  mqtt_connect(broker, port);
+
+  // Publish and subscribe
+  mqtt_pong();
+  
+  displayCallback("MQTT subscribe...");
+  mqtt_subscribe();
+
+  delay(1000);  
+  displayCallback("Pager ready...");
+}
 
 void CPIoTMqtt::add_callback(m_cb act) {
   action = act;
+}
+
+void CPIoTMqtt::addDisplayCallback(m_cb_s act) {
+  displayCallback = act;
 }
 
 void CPIoTMqtt::process() {
@@ -201,9 +223,9 @@ void CPIoTMqtt::mqtt_callback(char *topic, byte *payload, unsigned int length) {
 }
 
 
-void CPIoTMqtt::mqtt_connect() {
+void CPIoTMqtt::mqtt_connect(char* broker, int port) {
   //connecting to a mqtt broker
-  mqttClient.setServer(MQTT_BROKER, MQTT_PORT);
+  mqttClient.setServer(broker, port);
   mqttClient.setCallback(this->mqtt_callback);
   
   mqttClient.setBufferSize(5120);

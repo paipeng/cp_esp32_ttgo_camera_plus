@@ -22,11 +22,16 @@ extern "C" {
 
 class CPIoTMqtt {
     using m_cb = void (*)(char*); //alias function pointer
+    using m_cb_s = void (*)(String);
   public:
     CPIoTMqtt();
   private:
     m_cb action;
+    m_cb_s displayCallback;
+    
   public:
+    void connect(char* broker, int port);
+    void addDisplayCallback(m_cb_s act);
     void add_callback(m_cb act);
     void process();
     void wifi_connect(void);
@@ -35,7 +40,7 @@ class CPIoTMqtt {
     void mqtt_pong();
     void mqtt_subscribe();
     static void mqtt_callback(char *topic, byte *payload, unsigned int length);
-    void mqtt_connect();
+    void mqtt_connect(char* broker, int port);
     void mqtt_publish_received(float temperature);
     void loop();
   private:
