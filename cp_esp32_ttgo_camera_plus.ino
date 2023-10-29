@@ -9,7 +9,10 @@
 #include <PubSubClient.h>
 // JSON
 #include <ArduinoJson.h>
-
+// BASE64
+extern "C" {
+#include "crypto/base64.h"
+}
 
 #include "public.h"
 #include "wifi_const.h"
@@ -200,7 +203,12 @@ void mqtt_callback(char *topic, byte *payload, unsigned int length) {
         String message = doc["message"];
         String sender = doc["sender"];
         String receiver = doc["receiver"];
-        
+        String textPixelBase64 = doc["textPixelBase64"];
+
+        size_t outputLength;
+        unsigned char * decoded = base64_decode((const unsigned char *)textPixelBase64.c_str(), strlen(textPixelBase64.c_str()), &outputLength);
+        Serial.printf("base64 decoded len: %d\n", outputLength); 
+        free(decoded);
         Serial.println(message);
         update_pager_message(sender, receiver, message);
       }
