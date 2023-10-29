@@ -37,13 +37,27 @@ void CPIoTDisplayTFT::init() {
 }
 
 void CPIoTDisplayTFT::updatePagerMessage(String sender, String receiver, String message, unsigned char* textPixels, int dataLen, int textCount) {
+  Serial.println("updatePagerMessage: " + message);
+
   tft.fillScreen(TFT_BLACK);
   int x = tft.width() / 2;
   tft.drawString("From: " + sender, x, 20);
   tft.drawString("To: " + receiver, x, 40);
   tft.drawString(message, x, 60);
 
-  drawTest(textPixels, dataLen, textCount);
+  Serial.println("dataLen: " + dataLen);
+  Serial.println("textCount: " + textCount);
+  /*
+  unsigned char *td = (unsigned char *)malloc(sizeof(unsigned char) * dataLen * 8);
+
+  for (int i = 0; i < dataLen; i++) {
+    for (int j = 0; j < 8; j++) {
+      td[i*8 + j] = (textPixels[i] >> j) & 0x01;
+    }
+  }
+  drawTest(td, dataLen * 8, textCount);
+  free(td);
+  */
 }
 
 void CPIoTDisplayTFT::setStatus(String message) {
@@ -69,6 +83,10 @@ void CPIoTDisplayTFT::drawTextPixel(int x, int y, int width, int height, const u
 }
 
 void CPIoTDisplayTFT::drawTest(const unsigned char* data, int dataLen, int textCount) {
+  Serial.println("drawTextPixel");
+  Serial.println("dataLen: " + dataLen);
+  Serial.println("textCount: " + textCount);
+  
   int textDataLen = dataLen/textCount;
   uint16_t *td = (uint16_t *)malloc(sizeof(uint16_t) * textDataLen);
 
@@ -85,4 +103,6 @@ void CPIoTDisplayTFT::drawTest(const unsigned char* data, int dataLen, int textC
   spr.pushSprite(0, 0);
   //drawTextPixel(20, 200, 24, 24, (const uint16_t*)td);
   free(td);
+  
+  Serial.println("drawTextPixel end");
 }
