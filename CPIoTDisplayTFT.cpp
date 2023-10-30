@@ -1,9 +1,7 @@
 
 #include "CPIoTDisplayTFT.h"
 // BASE64
-extern "C" {
-#include "crypto/base64.h"
-}
+#include "mbedtls/base64.h"
 
 CPIoTDisplayTFT::CPIoTDisplayTFT():tft(TFT_eSPI()), spr(&tft) {
   
@@ -57,7 +55,10 @@ void CPIoTDisplayTFT::updatePagerMessage(String sender, String receiver, String 
   tft.drawString(message, x, 60);
 
   size_t dataLen;
-  unsigned char * decoded = base64_decode((const unsigned char *)textPixelBase64.c_str(), strlen(textPixelBase64.c_str()), &dataLen);
+  unsigned char * decoded = (unsigned char *) malloc(sizeof(unsigned char) * strlen(textPixelBase64.c_str()));
+
+  
+  mbedtls_base64_decode(decoded, strlen(textPixelBase64.c_str()), &dataLen, (unsigned char *)textPixelBase64.c_str(), strlen(textPixelBase64.c_str()));
   Serial.printf("base64 decoded len: %d\n", dataLen);
 
   unsigned char *td = (unsigned char *)malloc(sizeof(unsigned char) * dataLen * 8);
