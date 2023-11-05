@@ -6,6 +6,7 @@
 
 #include "mqtt_const.h"
 
+#include <SD.h>
 #define SDCARA_CS           0
 
 CPIoTDisplayTFT display;
@@ -20,6 +21,15 @@ void mqtt_callback_pager_message(String sender, String receiver, String message,
   display.updatePagerMessage(sender, receiver, message, textPixelBase64, textCount);
 }
 
+void sdcard_init() {
+  if (!SD.begin(SDCARA_CS)) {
+    Serial.println("SD Init Fail");
+  } else {
+    Serial.printf("SD Init Pass Type:%d Size:%lu\n", SD.cardType(), SD.cardSize() / 1024 / 1024);
+    Serial.printf("totalBytes:%lu usedBytes:%lu\n", SD.totalBytes(), SD.usedBytes());
+    delay(2000);
+  }
+}
 void setup(){
   delay(2000);
   
@@ -29,6 +39,7 @@ void setup(){
 
   display.init();
 
+  sdcard_init();
   delay(1000);
 
 #if 0  
