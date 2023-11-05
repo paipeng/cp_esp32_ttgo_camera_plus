@@ -39,7 +39,7 @@ void setup(){
 
   display.init();
 
-  sdcard_init();
+  //sdcard_init();
   delay(1000);
 
 #if 0  
